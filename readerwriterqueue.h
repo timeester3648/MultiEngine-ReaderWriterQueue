@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "MultiEngine/core/memory/MemoryAllocation.h"
+
 #include "atomicops.h"
 #include <new>
 #include <type_traits>
@@ -222,7 +224,7 @@ public:
 			
 			auto rawBlock = block->rawThis;
 			block->~Block();
-			std::free(rawBlock);
+			MultiEngine::memory_free(rawBlock);
 			block = nextBlock;
 		} while (block != frontBlock_);
 	}
@@ -730,7 +732,7 @@ private:
 		// Allocate enough memory for the block itself, as well as all the elements it will contain
 		auto size = sizeof(Block) + std::alignment_of<Block>::value - 1;
 		size += sizeof(T) * capacity + std::alignment_of<T>::value - 1;
-		auto newBlockRaw = static_cast<char*>(std::malloc(size));
+		auto newBlockRaw = static_cast<char*>(MultiEngine::memory_allocate(size));
 		if (newBlockRaw == nullptr) {
 			return nullptr;
 		}

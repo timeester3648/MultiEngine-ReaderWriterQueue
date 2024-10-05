@@ -24,3 +24,8 @@ benchmarks/benchmarks
 tests/stabtest/stabtest
 tests/unittests/unittests
 
+# exclude project files
+**.sln
+**.vcxproj
+**.vcxproj.user
+**.vcxproj.filters
