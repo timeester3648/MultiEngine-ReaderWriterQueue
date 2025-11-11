@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.9)
-project(readerwriterqueue VERSION 1.0.0)
+# See https://discourse.cmake.org/t/how-to-fix-cmake-minimum-required-deprecation-warning/2487/2
+# for more on setting the minimum required version.
+
+cmake_minimum_required(VERSION 3.9...3.31.7)
+project(readerwriterqueue VERSION 1.0.7)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -23,6 +26,7 @@ write_basic_package_version_file(
     VERSION
         ${PROJECT_VERSION}
     COMPATIBILITY AnyNewerVersion
+    ARCH_INDEPENDENT
 )
 
 configure_package_config_file(${PROJECT_NAME}Config.cmake.in
